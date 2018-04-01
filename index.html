@@ -3,41 +3,31 @@
 <head>
 	<meta charset="UTF-8">
 	<title>拇指点赞</title>
+	<META HTTP-EQUIV="pragma" CONTENT="no-cache"> 
+	<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate"> 
+	<META HTTP-EQUIV="expires" CONTENT="0">
 	<link rel="stylesheet" href="css/finger.css"/>
 	<script src="src/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.21.1/system-production.js"></script>
-	<script type="text/javascript" src="src/PraiseButton.js"></script>
+	<script src="./node_modules/systemjs/dist/system.js"></script>
 	<script>
 	</script>
 </head>
 <body>
 	<div id="main">
-		<div class="finger">
-			<div class="f1"></div>
-			<div class="f2"></div>
-			<div class="f3"></div>
-			<div class="f4"></div>
-		</div>
-		<div class="shouzhang">
-			<div class="s1"></div>
-			<div class="s2"></div>
-			<div class="s3"></div>
-			<div class="s4"></div>
-			<div class="s5"></div>
-			<div class="s6"></div>
-			<div class="s7"></div>
-			<div class="s8"></div>
-			<div class="s9"></div>
-			<div class="s10"></div>
-			<div class="s11"></div>
-		</div>
 	</div>
-	<div class="text">当前点赞次数：</div>
 </body>
 <script>
-	SystemJS.import('./lib/PraiseButton.js').then(function (m) {
+	SystemJS.config({
+            baseURL:'./',
+            transpiler:'plugin-babel',
+            map:{
+                'plugin-babel':'node_modules/systemjs-plugin-babel/plugin-babel.js',
+                'systemjs-babel-build':'node_modules/systemjs-plugin-babel/systemjs-babel-browser.js'
+            }
+        });
+	SystemJS.import('./lib/utils/index.js').then(function (m) {
             $.fn.myPlugin = function(){
-            
+				return new m.default(this);
 			}
 			$('#main').myPlugin();
         });
